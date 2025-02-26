@@ -16,7 +16,7 @@ import jakarta.ws.rs.core.MediaType;
 //https://developers.google.com/calendar/api/v3/reference/events/list
 //https://developers.google.com/calendar/api/v3/reference/events/list#examples
 
-@RegisterRestClient(configKey="google-calendar-api")
+@RegisterRestClient(configKey = "google-calendar-api")
 @AccessToken
 @Path("/calendars/primary")
 public interface GoogleCalendarClient {
@@ -26,15 +26,16 @@ public interface GoogleCalendarClient {
     @Produces(MediaType.APPLICATION_JSON)
     @Tool("Get events")
     Events getEvents(@RestQuery("timeMin") String timeMin, @RestQuery("timeMax") String timeMax);
-    
+
     public static record Events(List<Event> items) {
     }
-    
+
     public static record Event(String summary, String description, String location, String kind, Start start, End end) {
     }
-    
+
     public static record Start(String date, ZonedDateTime dateTime, String timeZone) {
     }
+
     public static record End(String date, ZonedDateTime dateTime, String timeZone) {
     }
 }
