@@ -48,19 +48,23 @@ public class PersonalAssistantResource {
         ZonedDateTime maxDateTime = minDateTime.plusDays(30);
         String timeMax = maxDateTime.format(formatter);
 
-        // return calendarClient.getEvents(timeMin, timeMax).toString();
         return assistant.assist(question, timeMin, timeMax);
     }
 
     @Singleton
+    @Authenticated
     public static class SecurityTools {
 
         @Inject
         SecurityIdentity identity;
 
-        @Authenticated
-        @Tool("Returns the first and the family name of the logged-in user.")
+        @Tool("Returns the first and the family names of the logged-in user.")
         public String getLoggedInUserName() {
+            return identity.getPrincipal().getName();
+        }
+        
+        @Tool("Returns email address of the logged-in user.")
+        public String getEmailAddressOfLoggedInUser() {
             return identity.getPrincipal().getName();
         }
 

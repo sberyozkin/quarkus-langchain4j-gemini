@@ -10,6 +10,7 @@ import dev.langchain4j.agent.tool.Tool;
 import io.quarkus.oidc.token.propagation.AccessToken;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
@@ -18,19 +19,32 @@ import jakarta.ws.rs.core.MediaType;
 
 @RegisterRestClient(configKey = "google-calendar-api")
 @AccessToken
-@Path("/calendars/primary")
+@Path("/")
 public interface GoogleCalendarClient {
 
     @GET
-    @Path("events")
+    @Path("/users/me/calendarList")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Tool("Get calendars list")
+    Calendars getCalendars();
+    
+    @GET
+    @Path("/calendars/{calendarId}/events")
     @Produces(MediaType.APPLICATION_JSON)
     @Tool("Get events")
-    Events getEvents(@RestQuery("timeMin") String timeMin, @RestQuery("timeMax") String timeMax);
+    Events getEvents(@PathParam("calendarId") String calendarId, @RestQuery("timeMin") String timeMin, @RestQuery("timeMax") String timeMax);
 
+    
+    public static record Calendars(List<Calendar> items) {
+    }
+
+    public static record Calendar(String id, String summary, String description, String location, String timeZone, boolean primary) {
+    }
+    
     public static record Events(List<Event> items) {
     }
 
-    public static record Event(String summary, String description, String location, String kind, Start start, End end) {
+    public static record Event(String summary, String description, String location, Start start, End end) {
     }
 
     public static record Start(String date, ZonedDateTime dateTime, String timeZone) {
