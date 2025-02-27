@@ -5,9 +5,12 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.eclipse.microprofile.jwt.Claims;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import dev.langchain4j.agent.tool.Tool;
+import io.quarkus.oidc.IdToken;
 import io.quarkus.security.Authenticated;
 import io.quarkus.security.identity.SecurityIdentity;
 import io.quarkus.websockets.next.OnOpen;
@@ -56,16 +59,17 @@ public class PersonalAssistantResource {
     public static class SecurityTools {
 
         @Inject
-        SecurityIdentity identity;
+        @IdToken
+        JsonWebToken identity; 
 
-        @Tool("Returns the first and the family names of the logged-in user.")
+        @Tool("Returns the first name and the family name of the logged-in user.")
         public String getLoggedInUserName() {
-            return identity.getPrincipal().getName();
+            return identity.getName();
         }
         
         @Tool("Returns email address of the logged-in user.")
         public String getEmailAddressOfLoggedInUser() {
-            return identity.getPrincipal().getName();
+            return identity.getClaim(Claims.email);
         }
 
     }
