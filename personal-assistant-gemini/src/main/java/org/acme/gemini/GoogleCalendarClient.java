@@ -8,7 +8,9 @@ import org.jboss.resteasy.reactive.RestQuery;
 
 import dev.langchain4j.agent.tool.Tool;
 import io.quarkus.oidc.token.propagation.AccessToken;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -33,6 +35,13 @@ public interface GoogleCalendarClient {
     @Produces(MediaType.APPLICATION_JSON)
     @Tool("Get events")
     Events getEvents(@PathParam("calendarId") String calendarId, @RestQuery("timeMin") String timeMin, @RestQuery("timeMax") String timeMax);
+    
+    @POST
+    @Path("/calendars/{calendarId}/events")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Tool("Add event")
+    Events addEvent(@PathParam("calendarId") String calendarId, Event event);
 
     
     public static record Calendars(List<Calendar> items) {
