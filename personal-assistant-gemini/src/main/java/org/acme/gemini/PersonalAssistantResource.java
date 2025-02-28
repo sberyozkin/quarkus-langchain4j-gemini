@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 
 import org.eclipse.microprofile.jwt.Claims;
 import org.eclipse.microprofile.jwt.JsonWebToken;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import dev.langchain4j.agent.tool.Tool;
 import io.quarkus.oidc.IdToken;
@@ -31,10 +30,6 @@ public class PersonalAssistantResource {
 
     @Inject
     SecurityIdentity identity;
-
-    @Inject
-    @RestClient
-    GoogleCalendarClient calendarClient;
 
     @OnOpen
     public String onOpen() {
