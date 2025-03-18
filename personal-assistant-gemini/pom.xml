@@ -18,7 +18,7 @@
         <quarkus.platform.version>3.15.2</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.2.5</surefire-plugin.version>
-        <quarkus-langchain4j.version>999-SNAPSHOT</quarkus-langchain4j.version>
+        <quarkus-langchain4j.version>0.26.0.CR2</quarkus-langchain4j.version>
     </properties>
 
     <dependencyManagement>
@@ -39,49 +39,11 @@
             <artifactId>quarkus-rest-jackson</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest-qute</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-oidc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-websockets-next</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest-client-oidc-token-propagation</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.quarkiverse.langchain4j</groupId>
-            <artifactId>quarkus-langchain4j-oidc-model-auth-provider</artifactId>
+            <artifactId>quarkus-langchain4j-ai-gemini</artifactId>
             <version>${quarkus-langchain4j.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.quarkiverse.langchain4j</groupId>
-            <artifactId>quarkus-langchain4j-vertex-ai-gemini</artifactId>
-            <version>${quarkus-langchain4j.version}</version>
-        </dependency>
-        <!-- UI -->
-        <dependency>
-            <groupId>io.mvnpm</groupId>
-            <artifactId>importmap</artifactId>
-            <version>1.0.11</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mvnpm</groupId>
-            <artifactId>lit</artifactId>
-            <version>3.2.0</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mvnpm</groupId>
-            <artifactId>wc-chatbot</artifactId>
-            <version>0.2.0</version>
-            <scope>runtime</scope>
-        </dependency>
+        
     </dependencies>
     <build>
         <plugins>

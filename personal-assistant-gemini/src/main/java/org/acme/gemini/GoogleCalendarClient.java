@@ -7,7 +7,6 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.jboss.resteasy.reactive.RestQuery;
 
 import dev.langchain4j.agent.tool.Tool;
-import io.quarkus.oidc.token.propagation.AccessToken;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -22,7 +21,6 @@ import jakarta.ws.rs.core.MediaType;
 //https://developers.google.com/calendar/api/v3/reference/events/list#examples
 
 @RegisterRestClient(configKey = "google-calendar-api")
-@AccessToken
 @Path("/")
 public interface GoogleCalendarClient {
 
